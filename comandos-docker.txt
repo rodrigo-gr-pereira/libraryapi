@@ -1,0 +1,17 @@
+#List
+docker ps
+docker ps -a
+#CREATE NETWORK
+docker network create library-network
+#POSTGRESS
+docker run --name librarydb -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER -e POSTGRES_DB=library --network library-network -d postgres:16.3
+docker run --name librarydb -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER -e POSTGRES_DB=library -d postgres
+#PGADMIN
+docker run --name pgadmin4 -p 15432:80 -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin --network library-network dpage/pgadmin4
+docker run --name pgadmin4 -p 15432:80 -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin dpage/pgadmin4
+#STOP
+docker stop pgadmin4
+docker stop librarydb
+#REMOVE
+docker container rm pgadmin4
+docker container rm librarydb
